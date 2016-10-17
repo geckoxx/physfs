@@ -445,7 +445,7 @@ static PHYSFS_Io *handleIo_duplicate(PHYSFS_Io *io)
     memcpy(retval, io, sizeof (PHYSFS_Io));
     retval->opaque = newfh;
     return retval;
-    
+
 handleIo_dupe_failed:
     if (newfh)
     {
@@ -1127,6 +1127,9 @@ static int initStaticArchivers(void)
     #endif
     #if PHYSFS_SUPPORTS_ISO9660
         REGISTER_STATIC_ARCHIVER(ISO9660);
+    #endif
+    #if PHYSFS_SUPPORTS_RAS
+        REGISTER_STATIC_ARCHIVER(RAS);
     #endif
 
     #undef REGISTER_STATIC_ARCHIVER

@@ -50,7 +50,8 @@ endif()
 # Add some gcc-specific command lines.
 if(CMAKE_COMPILER_IS_GNUCC)
     # Always build with debug symbols...you can strip it later.
-    add_definitions(-g -pipe -Werror -fsigned-char)
+    #add_definitions(-g -pipe -Werror -fsigned-char)
+    add_definitions(-g -pipe -fsigned-char)
 
     # Stupid BeOS generates warnings in the system headers.
     if(NOT BEOS)
@@ -135,6 +136,7 @@ set(PHYSFS_SRCS
     src/archiver_zip.c
     src/archiver_slb.c
     src/archiver_iso9660.c
+    src/archiver_ras.c
     ${PHYSFS_BEOS_SRCS}
 )
 
@@ -263,6 +265,11 @@ if(PHYSFS_ARCHIVE_ISO9660)
     add_definitions(-DPHYSFS_SUPPORTS_ISO9660=1)
 endif()
 
+option(PHYSFS_ARCHIVE_RAS "Enable Max Payne 2 support" TRUE)
+if(PHYSFS_ARCHIVE_RAS)
+    add_definitions(-DPHYSFS_SUPPORTS_RAS=1)
+endif()
+
 
 option(PHYSFS_BUILD_STATIC "Build static library" TRUE)
 if(PHYSFS_BUILD_STATIC)
@@ -387,6 +394,7 @@ message_bool_option("HOG support" PHYSFS_ARCHIVE_HOG)
 message_bool_option("MVL support" PHYSFS_ARCHIVE_MVL)
 message_bool_option("QPAK support" PHYSFS_ARCHIVE_QPAK)
 message_bool_option("SLB support" PHYSFS_ARCHIVE_SLB)
+message_bool_option("RAS support" PHYSFS_ARCHIVE_RAS)
 message_bool_option("CD-ROM drive support" PHYSFS_HAVE_CDROM_SUPPORT)
 message_bool_option("Thread safety" PHYSFS_HAVE_THREAD_SUPPORT)
 message_bool_option("Build static library" PHYSFS_BUILD_STATIC)
